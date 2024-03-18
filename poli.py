@@ -1,7 +1,9 @@
 import openai
 import streamlit as st
-from langchain_openai import ChatOpenAI, OpenAIEmbeddings
-from string import Template
+from langchain_core.messages import AIMessage, HumanMessage
+from langchain_openai import ChatOpenAI
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate
 
 with st.sidebar:
     st.title('🤖💬 OpenAI Chatbot')
@@ -14,16 +16,15 @@ with st.sidebar:
             st.warning('Please enter your credentials!', icon='⚠️')
         else:
             st.success('Proceed to entering your prompt message!', icon='👉')
+    
 
-if "messages" not in st.session_state:
-    st.session_state.messages = []
+# app config
+st.set_page_config(page_title="Streaming bot", page_icon="🤖")
+st.title("Streaming bot")
 
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+def get_response(user_query, chat_history):
 
-poli_template = Template("""
-                         
+    template = """
     Parsed is a company built in order to bring efficiency in business operations of companies. We provide the alignment between business stakeholders, AI and employees, working as an AI core to produce autonomous agents. 
     Our objective is to enable companies to create 10x use cases from the same dataset, being able to have fully automated systems which enable for automations to take place.
     From the beginning we helped companies customize AI open source models to leverage from using the amount of information they have available in daily uses, at the end we helped them choose between having internal bots, external bots or automations. 
@@ -51,35 +52,51 @@ poli_template = Template("""
 
     Join us on the forefront of AI innovation, and unleash the true potential of your organization. With Parsed, collaborative AI and knowledge sharing are within reach like never before. Experience a new era of automation, efficiency, and growth.
 
-    We enable teams to co-work with artificial intelligence, developing unique, hyper-customised solutions that enable productivity gains in up to 66% of work areas. We specialise in developing customised use cases guiding the client to solve high priority pain points by leveraging AI. We create solutions that emulate the process that would run in real time to show our clients the performance of AI to solve the pain point that the client builds confidence with the implementation of emerging technologies in high priority processes within the organisation. 
+    We enable teams to co-work with artificial intelligence, developing unique, hyper-customised solutions that enable productivity gains in up to 66% of work areas. We specialise in developing customised use cases guiding the client to solve high priority pain points by leveraging AI. We create solutions that emulate the process that would run in real time to show our clients the performance of AI to solve the pain point that the client builds confidence with the implementation of emerging technologies in high priority processes within the organisation.
+    
+    You are Poli, a helpful assistant. Answer the following questions considering the history of the conversation:
 
-    Context: $context
-            
-    History: $history
-            
-    Human: $query
-    Asistente de IA:""")
+    Chat history: {chat_history}
 
-poli_prompt = """ You are POLI, the AI assistant of Parsed. """
+    User question: {user_question}
+    """
 
-bot = ChatOpenAI(
-            model="gpt-3.5-turbo-0125",
-            messages=[{"role": m["role"], "content": m["content"]}
-                      for m in st.session_state.messages], 
-            stream=True,
-            template=poli_template, 
-            system_prompt=poli_prompt
-            )
+    prompt = ChatPromptTemplate.from_template(template)
 
-if prompt := st.chat_input("What is up?"):
-    st.session_state.messages.append({"role": "user", "content": prompt})
-    with st.chat_message("user"):
-        st.markdown(prompt)
-    with st.chat_message("assistant"):
-        message_placeholder = st.empty()
-        full_response = ""
-        for response in bot:
-            full_response += bot.invoke("content", "")
-            message_placeholder.markdown(full_response + "▌")
-        message_placeholder.markdown(full_response)
-    st.session_state.messages.append({"role": "assistant", "content": full_response})
+    llm = ChatOpenAI(openai_api_key=openai.api_key,model="gpt-3.5-turbo-0125")
+        
+    chain = prompt | llm | StrOutputParser()
+    
+    return chain.stream({
+        "chat_history": chat_history,
+        "user_question": user_query,
+    })
+
+# session state
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = [
+        AIMessage(content="Hello, I am a bot. How can I help you?"),
+    ]
+
+    
+# conversation
+for message in st.session_state.chat_history:
+    if isinstance(message, AIMessage):
+        with st.chat_message("AI"):
+            st.write(message.content)
+    elif isinstance(message, HumanMessage):
+        with st.chat_message("Human"):
+            st.write(message.content)
+
+# user input
+user_query = st.chat_input("Type your message here...")
+if user_query is not None and user_query != "":
+    st.session_state.chat_history.append(HumanMessage(content=user_query))
+
+    with st.chat_message("Human"):
+        st.markdown(user_query)
+
+    with st.chat_message("AI"):
+        response = st.write_stream(get_response(user_query, st.session_state.chat_history))
+
+    st.session_state.chat_history.append(AIMessage(content=response))
