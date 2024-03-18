@@ -62,6 +62,15 @@ poli_template = Template("""
 
 poli_prompt = """ You are POLI, the AI assistant of Parsed. """
 
+bot = ChatOpenAI(
+            model="gpt-3.5-turbo-0125",
+            messages=[{"role": m["role"], "content": m["content"]}
+                      for m in st.session_state.messages], 
+            stream=True,
+            template=poli_template, 
+            system_prompt=poli_prompt
+            )
+
 if prompt := st.chat_input("What is up?"):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
@@ -69,15 +78,8 @@ if prompt := st.chat_input("What is up?"):
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
         full_response = ""
-        for response in OpenAIEmbeddings(
-            model="gpt-3.5-turbo-0125",
-            messages=[{"role": m["role"], "content": m["content"]}
-                      for m in st.session_state.messages], 
-            stream=True,
-            template=poli_template, 
-            system_prompt=poli_prompt
-            ):
-            full_response += response.choices[0].delta.get("content", "")
+        for response in bot:
+            full_response += bot.invoke("content", "")
             message_placeholder.markdown(full_response + "▌")
         message_placeholder.markdown(full_response)
     st.session_state.messages.append({"role": "assistant", "content": full_response})
