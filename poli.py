@@ -1,5 +1,5 @@
-from langchain_openai import ChatOpenAI, OpenAIEmbeddings
-from langchain_text_splitters import RecursiveCharacterTextSplitter
+# from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+# from langchain_text_splitters import RecursiveCharacterTextSplitter
 import streamlit as st
 import openai
 
@@ -71,7 +71,7 @@ if prompt := st.chat_input("What is up?"):
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
         full_response = ""
-        for response in ChatOpenAI(
+        for response in openai.ChatCompletion.create(
             openai_api_key=openai.api_key,
             model="gpt-3.5-turbo-0125",
             messages=[{"role": m["role"], "content": m["content"]}
