@@ -69,7 +69,7 @@ if prompt := st.chat_input("What is up?"):
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
         full_response = ""
-        for response in ChatOpenAI(
+        for response in OpenAIEmbeddings(
             model="gpt-3.5-turbo-0125",
             messages=[{"role": m["role"], "content": m["content"]}
                       for m in st.session_state.messages], 
