@@ -98,7 +98,15 @@ for message in st.session_state.chat_history:
     elif isinstance(message, HumanMessage):
         with st.chat_message("👨‍💻"):
             st.write(message.content)
-  
+            
+user_query = st.chat_input("Type your message here...")            
+if user_query is not None and user_query != "" and not st.session_state.boton_clickeado:
+    st.session_state.chat_history.append(HumanMessage(content=user_query))
+    with st.chat_message("👨‍💻"):
+        st.markdown(user_query)
+    with st.chat_message("📎"):
+        response = st.write_stream(get_response(user_query, st.session_state.chat_history))
+    st.session_state.chat_history.append(AIMessage(content=response))  
 def click(string):
     botones_placeholder.empty()
     st.session_state.chat_history.append(HumanMessage(content=string))
@@ -110,16 +118,10 @@ def click(string):
     st.session_state.boton_clickeado = True
 
 # user input
-user_query = st.chat_input("Type your message here...")
 
-if user_query is not None and user_query != "" and not st.session_state.boton_clickeado:
-    st.session_state.chat_history.append(HumanMessage(content=user_query))
-    with st.chat_message("👨‍💻"):
-        st.markdown(user_query)
-    with st.chat_message("📎"):
-        response = st.write_stream(get_response(user_query, st.session_state.chat_history))
-    st.session_state.chat_history.append(AIMessage(content=response))
-else:
+
+
+
     if not st.session_state.boton_clickeado:
         botones_placeholder = st.empty()
         with botones_placeholder.container():
