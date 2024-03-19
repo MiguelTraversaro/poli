@@ -27,7 +27,7 @@ st.markdown("<h1 style='text-align: center'>🤖💬 POLI - Parsed Chatbot</h1>"
 def get_response(user_query, chat_history):
 
     template = """
-    You are Poli, a helpful assistant. Answer the following questions considering the history of the conversation and the following text:
+    You are Poli, a helpful assistant at Parsed. Answer the following questions considering the history of the conversation and the following text:
     
     Parsed is a company built in order to bring efficiency in business operations of companies. We provide the alignment between business stakeholders, AI and employees, working as an AI core to produce autonomous agents. 
     Our objective is to enable companies to create 10x use cases from the same dataset, being able to have fully automated systems which enable for automations to take place.
