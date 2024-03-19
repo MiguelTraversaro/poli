@@ -109,11 +109,11 @@ def click(string):
 col1,col2 = st.columns(2)
 with st.container():
     with col1:
-        b1 = st.button(opciones_mensajes[0],use_container_width=True)
-        b2 = st.button(opciones_mensajes[2],use_container_width=True)
+        st.button(opciones_mensajes[0],use_container_width=True, on_click=click, args=[opciones_mensajes[0]])
+        st.button(opciones_mensajes[2],use_container_width=True, on_click=click, args=[opciones_mensajes[2]])
     with col2:
-        b3 = st.button(opciones_mensajes[1],use_container_width=True)
-        b4 = st.button(opciones_mensajes[3],use_container_width=True)
+        st.button(opciones_mensajes[1],use_container_width=True, on_click=click, args=[opciones_mensajes[1]])
+        st.button(opciones_mensajes[3],use_container_width=True, on_click=click, args=[opciones_mensajes[3]])
 
 
 
