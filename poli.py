@@ -100,9 +100,9 @@ for message in st.session_state.chat_history:
             st.write(message.content)
   
 def click(string):
-    # botones_placeholder.empty()
+    botones_placeholder.empty()
     st.session_state.chat_history.append(HumanMessage(content=string))
-    response = st.write(get_response(user_query, st.session_state.chat_history))
+    response = "prueba1"+st.write_stream(get_response(user_query, st.session_state.chat_history))
     st.session_state.chat_history.append(AIMessage(content=response))
     st.session_state.boton_clickeado = True
 
