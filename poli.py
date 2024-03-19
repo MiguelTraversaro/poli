@@ -7,7 +7,7 @@ from langchain_core.prompts import ChatPromptTemplate
 
 # app config
 st.set_page_config(page_title="POLI 🤖💬",page_icon="🤖")
-st.title('🤖💬 POLI - Parsed Chatbot',divider="rainbow")
+st.header('🤖💬 POLI - Parsed Chatbot',divider="rainbow")
 # app sidebar
 with st.sidebar:
     st.title('🤖💬 POLI - Parsed Chatbot')
