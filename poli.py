@@ -96,24 +96,24 @@ opciones_mensajes = [
     "¿Parsed hace fácil usar IA sin ser experto?",
 ]
 
-if 'boton_clickeado' not in st.session_state:
-    st.session_state.boton_clickeado = False
+# if 'boton_clickeado' not in st.session_state:
+#     st.session_state.boton_clickeado = False
     
-# def click(opcion):
-#     #Limpiar el marcador de posición para hacer desaparecer los botones
-#     botones_placeholder.empty()
-#     # Agregar mensaje del usuario al historial
-#     st.session_state.chat_history.append(HumanMessage(content=opcion))
-#     with st.chat_message("👨‍💻"):
-#         st.markdown(opcion)
-#     # Obtener respuesta del asistente
-#     with st.chat_message("📎"):
-#         response = st.write_stream(get_response(opcion, st.session_state.chat_history))
-#     # Agregar respuesta del asistente al historial de chat
-#     st.session_state.chat_history.append(AIMessage(content=response))
-#     # Actualizar el estado para no volver a mostrar los botones
-#     st.session_state.boton_clickeado = True
-#     st.experimental_rerun()
+def click(opcion):
+    #Limpiar el marcador de posición para hacer desaparecer los botones
+    # botones_placeholder.empty()
+    # Agregar mensaje del usuario al historial
+    st.session_state.chat_history.append(HumanMessage(content=opcion))
+    with st.chat_message("👨‍💻"):
+        st.markdown(opcion)
+    # Obtener respuesta del asistente
+    with st.chat_message("📎"):
+        response = st.write_stream(get_response(opcion, st.session_state.chat_history))
+    # Agregar respuesta del asistente al historial de chat
+    st.session_state.chat_history.append(AIMessage(content=response))
+    # Actualizar el estado para no volver a mostrar los botones
+    # st.session_state.boton_clickeado = True
+    st.experimental_rerun()
 
 botones_placeholder = st.empty()    
 
@@ -127,43 +127,41 @@ if user_query is not None and user_query != "":
     with st.chat_message("📎"):
         response = st.write_stream(get_response(user_query, st.session_state.chat_history))
     st.session_state.chat_history.append(AIMessage(content=response))
-else:
-    if not st.session_state.boton_clickeado:
-        with botones_placeholder.container():
-            cols = st.columns(2)
-            for i, opcion in enumerate(opciones_mensajes):
-                with cols[i % 2]:
-                    if st.button(opcion, key=f"button_{i}",use_container_width=True):
-                        # Limpiar el marcador de posición para hacer desaparecer los botones
-                        botones_placeholder.empty()
-                        # Agregar mensaje del usuario al historial
-                        st.session_state.chat_history.append(HumanMessage(content=opcion))
-                        with st.chat_message("👨‍💻"):
-                            st.markdown(opcion)
-                        # Obtener respuesta del asistente
-                        with st.chat_message("📎"):
-                            response = st.write_stream(get_response(opcion, st.session_state.chat_history))
-                        # Agregar respuesta del asistente al historial de chat
-                        st.session_state.chat_history.append(AIMessage(content=response))
-
-                        # Actualizar el estado para no volver a mostrar los botones
-                        st.session_state.boton_clickeado = True
-
-                        # Forzar una actualización de la interfaz de usuario
-                        st.experimental_rerun()
-                        break  # Salir del bucle después de un clic
+# else:
+#     if not st.session_state.boton_clickeado:
+#         with botones_placeholder.container():
+#             cols = st.columns(2)
+#             for i, opcion in enumerate(opciones_mensajes):
+#                 with cols[i % 2]:
+#                     if st.button(opcion, key=f"button_{i}",use_container_width=True):
+#                         # Limpiar el marcador de posición para hacer desaparecer los botones
+#                         botones_placeholder.empty()
+#                         # Agregar mensaje del usuario al historial
+#                         st.session_state.chat_history.append(HumanMessage(content=opcion))
+#                         with st.chat_message("👨‍💻"):
+#                             st.markdown(opcion)
+#                         # Obtener respuesta del asistente
+#                         with st.chat_message("📎"):
+#                             response = st.write_stream(get_response(opcion, st.session_state.chat_history))
+#                         # Agregar respuesta del asistente al historial de chat
+#                         st.session_state.chat_history.append(AIMessage(content=response))
+#                         # Actualizar el estado para no volver a mostrar los botones
+#                         st.session_state.boton_clickeado = True
+#                         # Forzar una actualización de la interfaz de usuario
+#                         st.experimental_rerun()
+#                         break  # Salir del bucle después de un clic
     
 # if not st.session_state.boton_clickeado:
-#     with botones_placeholder.container():
-#         col1,col2 = st.columns(2)
-#         with col1:
-#             if st.button(opciones_mensajes[0],key=f"button_{0}",use_container_width=True):
-#                 click(opciones_mensajes[0])
-#             if st.button(opciones_mensajes[1],key=f"button_{1}",use_container_width=True):
-#                 click(opciones_mensajes[1])
-#         with col2:
-#             if st.button(opciones_mensajes[2],key=f"button_{2}",use_container_width=True):
-#                 click(opciones_mensajes[2])
-#             if st.button(opciones_mensajes[3],key=f"button_{3}",use_container_width=True):
-#                 click(opciones_mensajes[3])
-    # 
+    with botones_placeholder.container():
+        col1,col2 = st.columns(2)
+        with col1:
+            if st.button(opciones_mensajes[0],key=f"button_{0}",use_container_width=True):
+                click(opciones_mensajes[0])
+            if st.button(opciones_mensajes[1],key=f"button_{1}",use_container_width=True):
+                click(opciones_mensajes[1])
+        with col2:
+            if st.button(opciones_mensajes[2],key=f"button_{2}",use_container_width=True):
+                click(opciones_mensajes[2])
+            if st.button(opciones_mensajes[3],key=f"button_{3}",use_container_width=True):
+                click(opciones_mensajes[3])
+    
