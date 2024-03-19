@@ -104,12 +104,9 @@ for message in st.session_state.chat_history:
 def click(string):
     botones_placeholder.empty()
     st.session_state.chat_history.append(HumanMessage(content=string))
-    # with st.chat_message("👨‍💻"):
-    #     st.markdown(string)
-    # with st.chat_message("📎"):
     with st.chat_message("📎"):
         response = st.write_stream(get_response(user_query, st.session_state.chat_history))
-    # st.session_state.chat_history.append(AIMessage(content=response))
+    st.session_state.chat_history.append(AIMessage(content=response))
     st.session_state.boton_clickeado = True
 
 botones_placeholder = st.empty() 
