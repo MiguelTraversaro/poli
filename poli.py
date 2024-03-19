@@ -118,7 +118,7 @@ else:
         with botones_placeholder.container():
             cols = st.columns(num_columnas)
             for i, opcion in enumerate(opciones_mensajes):
-                with cols[i % num_columnas+1]:
+                with cols[i % num_columnas]:
                     if st.button(opcion, key=f"button_{i}",use_container_width=True):
                         # Limpiar el marcador de posición para hacer desaparecer los botones
                         botones_placeholder.empty()
