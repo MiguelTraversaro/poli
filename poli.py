@@ -107,7 +107,6 @@ num_columnas = 2 if int(ancho_pantalla) < 768 else 3
 user_query = st.chat_input("Type your message here...")
 
 if user_query is not None and user_query != "":
-    botones_placeholder.empty()
     st.session_state.chat_history.append(HumanMessage(content=user_query))
     with st.chat_message("👨‍💻"):
         st.markdown(user_query)
@@ -119,10 +118,9 @@ else:
         with botones_placeholder.container():
             cols = st.columns(num_columnas)
             for i, opcion in enumerate(opciones_mensajes):
-                with cols[i % 3]:
+                with cols[i % num_columnas+1]:
                     if st.button(opcion, key=f"button_{i}",use_container_width=True):
                         # Limpiar el marcador de posición para hacer desaparecer los botones
-                        
                         botones_placeholder.empty()
                         # Agregar mensaje del usuario al historial
                         st.session_state.chat_history.append(HumanMessage(content=opcion))
