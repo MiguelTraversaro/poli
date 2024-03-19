@@ -67,7 +67,7 @@ def get_response(user_query, chat_history):
 
     prompt = ChatPromptTemplate.from_template(template)
 
-    llm = ChatOpenAI(openai_api_key=openai.api_key,model="gpt-3.5-turbo-0125")
+    llm = ChatOpenAI(openai_api_key=openai.api_key,model="gpt-3.5-turbo-0125",temperature=1)
         
     chain = prompt | llm | StrOutputParser()
     
@@ -79,14 +79,14 @@ def get_response(user_query, chat_history):
 # session state
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = [
-        AIMessage(content="Hola! Soy Poli, ¿En que puedo ayudarte hoy?"),
+        AIMessage(content="Hola! Soy Poli, ¿En que puedo ayudarte?"),
     ]
 
     
 # conversation
 for message in st.session_state.chat_history:
     if isinstance(message, AIMessage):
-        with st.chat_message("AI"):
+        with st.chat_message("🤖"):
             st.write(message.content)
     elif isinstance(message, HumanMessage):
         with st.chat_message("Human"):
@@ -100,7 +100,7 @@ if user_query is not None and user_query != "":
     with st.chat_message("Human"):
         st.markdown(user_query)
 
-    with st.chat_message("AI"):
+    with st.chat_message("🤖"):
         response = st.write_stream(get_response(user_query, st.session_state.chat_history))
 
     st.session_state.chat_history.append(AIMessage(content=response))
