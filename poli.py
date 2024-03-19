@@ -25,6 +25,8 @@ with st.sidebar:
 def get_response(user_query, chat_history):
 
     template = """
+    You are Poli, a helpful assistant. Answer the following questions considering the history of the conversation and the following text:
+    
     Parsed is a company built in order to bring efficiency in business operations of companies. We provide the alignment between business stakeholders, AI and employees, working as an AI core to produce autonomous agents. 
     Our objective is to enable companies to create 10x use cases from the same dataset, being able to have fully automated systems which enable for automations to take place.
     From the beginning we helped companies customize AI open source models to leverage from using the amount of information they have available in daily uses, at the end we helped them choose between having internal bots, external bots or automations. 
@@ -54,8 +56,6 @@ def get_response(user_query, chat_history):
 
     We enable teams to co-work with artificial intelligence, developing unique, hyper-customised solutions that enable productivity gains in up to 66% of work areas. We specialise in developing customised use cases guiding the client to solve high priority pain points by leveraging AI. We create solutions that emulate the process that would run in real time to show our clients the performance of AI to solve the pain point that the client builds confidence with the implementation of emerging technologies in high priority processes within the organisation.
     
-    You are Poli, a helpful assistant. Answer the following questions considering the history of the conversation:
-
     Chat history: {chat_history}
 
     User question: {user_question}
@@ -75,7 +75,7 @@ def get_response(user_query, chat_history):
 # session state (chat history)
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = [
-        AIMessage(content="👋 Hola! Soy Poli, ¿En que puedo ayudarte?"),
+        AIMessage(content="👋 Hola! Soy Poli, el asistente de Parsed. ¿En qué puedo ayudarte?"),
     ]
 
     
@@ -88,9 +88,23 @@ for message in st.session_state.chat_history:
         with st.chat_message("👨‍💻"):
             st.write(message.content)
 
+opciones_mensajes = [
+    "¿Cómo revoluciona Parsed las operaciones empresariales?",
+    "¿Qué capacitación ofrece Parsed para el uso de la IA?",
+    "¿Cómo cambia Parsed la visión sobre IA?",
+    "¿Parsed hace fácil usar IA sin ser experto?",
+]
+
+if 'boton_clickeado' not in st.session_state:
+    st.session_state.boton_clickeado = False
+    
+botones_placeholder = st.empty()
+ancho_pantalla = st.experimental_get_query_params().get("width", [0])[0]
+num_columnas = 2 if int(ancho_pantalla) < 768 else 3
+
 # user input
 user_query = st.chat_input("Type your message here...")
-if user_query is not None and user_query != "":
+if user_query is not None and user_query != "" and not st.session_state.boton_clickeado:
     st.session_state.chat_history.append(HumanMessage(content=user_query))
 
     with st.chat_message("👨‍💻"):
@@ -100,3 +114,27 @@ if user_query is not None and user_query != "":
         response = st.write_stream(get_response(user_query, st.session_state.chat_history))
 
     st.session_state.chat_history.append(AIMessage(content=response))
+else:
+    if not st.session_state.boton_clickeado:
+        with botones_placeholder.container():
+            cols = st.columns(num_columnas)
+            for i, opcion in enumerate(opciones_mensajes):
+                with cols[i % num_columnas]:
+                    if st.button(opcion, key=f"button_{i}"):
+                        # Limpiar el marcador de posición para hacer desaparecer los botones
+                        botones_placeholder.empty()
+                        # Agregar mensaje del usuario al historial
+                        st.session_state.messages.append({"role": "user", "content": opcion})
+
+                        # Obtener respuesta del asistente
+                        assistant_response = get_response(opcion, st.session_state.chat_history)
+                        
+                        # Agregar respuesta del asistente al historial de chat
+                        st.session_state.messages.append({"role": "assistant", "content": assistant_response.strip()})
+
+                        # Actualizar el estado para no volver a mostrar los botones
+                        st.session_state.boton_clickeado = True
+
+                        # Forzar una actualización de la interfaz de usuario
+                        st.experimental_rerun()
+                        break  # Salir del bucle después de un clic
