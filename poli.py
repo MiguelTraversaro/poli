@@ -135,7 +135,6 @@ else:
                             st.session_state.boton_clickeado = True
 
                             # Forzar una actualización de la interfaz de usuario
-                            st.experimental_rerun()
                             break  # Salir del bucle después de un clic
     except Exception as e:
         print("Error:", e)
