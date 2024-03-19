@@ -4,6 +4,7 @@ from langchain_core.messages import AIMessage, HumanMessage
 from langchain_openai import ChatOpenAI
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
+import time
 
 # app config
 st.set_page_config(page_title="POLI 🤖💬",page_icon="🤖")
@@ -123,6 +124,7 @@ else:
                 with cols[i % num_columnas]:
                     if st.button(opcion, key=f"button_{i}",use_container_width=True):
                         # Limpiar el marcador de posición para hacer desaparecer los botones
+                        time.sleep(0.1)
                         botones_placeholder.empty()
                         # Agregar mensaje del usuario al historial
                         st.session_state.chat_history.append(HumanMessage(content=opcion))
@@ -137,7 +139,6 @@ else:
                         # Actualizar el estado para no volver a mostrar los botones
                         st.session_state.boton_clickeado = True
 
-                        botones_placeholder.empty()
                         # Forzar una actualización de la interfaz de usuario
                         st.experimental_rerun()
                         break  # Salir del bucle después de un clic
