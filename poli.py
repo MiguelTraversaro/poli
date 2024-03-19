@@ -107,8 +107,8 @@ def click(string):
     # with st.chat_message("👨‍💻"):
     #     st.markdown(string)
     # with st.chat_message("📎"):
-    response = st.write_stream(get_response(string, st.session_state.chat_history))
-    st.session_state.chat_history.append(AIMessage(content=response))
+    # response = st.write_stream(get_response(string, st.session_state.chat_history))
+    st.session_state.chat_history.append(AIMessage(content=st.write_stream(get_response(string, st.session_state.chat_history))))
     st.session_state.boton_clickeado = True
 
 botones_placeholder = st.empty() 
