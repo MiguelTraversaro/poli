@@ -8,7 +8,7 @@ import time
 
 # app config
 st.set_page_config(page_title="POLI 🤖💬",page_icon="🤖")
-st.title("<h1 style='text-align: center'>🤖💬 POLI - Parsed Chatbot</h1>", unsafe_allow_html=True)
+st.title("🤖💬 POLI - Parsed Chatbot")
 # st.header('🤖💬 POLI - Parsed Chatbot',divider="rainbow")
 # app sidebar
 # with st.sidebar:
