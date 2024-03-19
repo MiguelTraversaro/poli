@@ -109,11 +109,13 @@ def click(string):
 col1,col2 = st.columns(2)
 with st.container():
     with col1:
-        st.button(opciones_mensajes[0],use_container_width=True)
-        st.button(opciones_mensajes[2],use_container_width=True)
+        b1 = st.button(opciones_mensajes[0],use_container_width=True)
+        b2 = st.button(opciones_mensajes[2],use_container_width=True)
     with col2:
-        st.button(opciones_mensajes[1],use_container_width=True)
-        st.button(opciones_mensajes[3],use_container_width=True)
+        b3 = st.button(opciones_mensajes[1],use_container_width=True)
+        b4 = st.button(opciones_mensajes[3],use_container_width=True)
+
+
 
 # if 'boton_clickeado' not in st.session_state:
 #     st.session_state.boton_clickeado = False
