@@ -118,14 +118,7 @@ def click(opcion):
     st.session_state.boton_clickeado = True
     
 
-if not st.session_state.boton_clickeado:
-    with botones_placeholder.container():
-        with col1:
-            st.button(opciones_mensajes[0],key=f"button_{0}",use_container_width=True,on_click=click(opciones_mensajes[0]))
-            st.button(opciones_mensajes[1],key=f"button_{1}",use_container_width=True,on_click=click(opciones_mensajes[1]))
-        with col2:
-            st.button(opciones_mensajes[2],key=f"button_{2}",use_container_width=True,on_click=click(opciones_mensajes[2]))
-            st.button(opciones_mensajes[3],key=f"button_{3}",use_container_width=True,on_click=click(opciones_mensajes[3]))
+
 
 
 
@@ -134,7 +127,14 @@ if not st.session_state.boton_clickeado:
 # user input
 user_query = st.chat_input("Type your message here...")
 
-
+if not st.session_state.boton_clickeado:
+    with botones_placeholder.container():
+        with col1:
+            st.button(opciones_mensajes[0],key=f"button_{0}",use_container_width=True,on_click=click(opciones_mensajes[0]))
+            st.button(opciones_mensajes[1],key=f"button_{1}",use_container_width=True,on_click=click(opciones_mensajes[1]))
+        with col2:
+            st.button(opciones_mensajes[2],key=f"button_{2}",use_container_width=True,on_click=click(opciones_mensajes[2]))
+            st.button(opciones_mensajes[3],key=f"button_{3}",use_container_width=True,on_click=click(opciones_mensajes[3]))
 
 if user_query is not None and user_query != "":
     st.session_state.chat_history.append(HumanMessage(content=user_query))
