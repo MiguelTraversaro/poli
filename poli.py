@@ -99,9 +99,6 @@ opciones_mensajes = [
 if 'boton_clickeado' not in st.session_state:
     st.session_state.boton_clickeado = False
     
-botones_placeholder = st.empty()
-col1,col2 = st.columns(2)
-
 def click(opcion):
     #Limpiar el marcador de posición para hacer desaparecer los botones
     botones_placeholder.empty()
@@ -117,18 +114,13 @@ def click(opcion):
     # Actualizar el estado para no volver a mostrar los botones
     st.session_state.boton_clickeado = True
     
-
-
-
-
-
-
-
 # user input
 user_query = st.chat_input("Type your message here...")
+botones_placeholder = st.empty()
 
 if not st.session_state.boton_clickeado:
     with botones_placeholder.container():
+        col1,col2 = st.columns(2)
         with col1:
             st.button(opciones_mensajes[0],key=f"button_{0}",use_container_width=True,on_click=click(opciones_mensajes[0]))
             st.button(opciones_mensajes[1],key=f"button_{1}",use_container_width=True,on_click=click(opciones_mensajes[1]))
