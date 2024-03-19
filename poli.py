@@ -75,10 +75,8 @@ def get_response(user_query, chat_history):
     })
     
 if 'boton_clickeado' not in st.session_state:
-    st.session_state.boton_clickeado = False
+    st.session_state.boton_clickeado = True
 
-
-    
 opciones_mensajes = [
     "¿Cómo revoluciona Parsed las operaciones empresariales?",
     "¿Qué capacitación ofrece Parsed para el uso de la IA?",
@@ -91,7 +89,7 @@ if "chat_history" not in st.session_state:
     st.session_state.chat_history = [
         AIMessage(content="👋 Hola! Soy Poli, el asistente de Parsed. ¿En qué puedo ayudarte?"),
     ]
- 
+
 # conversation
 for message in st.session_state.chat_history:
     if isinstance(message, AIMessage):
@@ -103,7 +101,7 @@ for message in st.session_state.chat_history:
   
 def click(string):
     # botones_placeholder.empty()
-    st.session_state.chat_history.append(HumanMessage(content="prueba2"+string))
+    st.session_state.chat_history.append(HumanMessage(content=string))
     response = "prueba: "+st.write_stream(get_response(user_query, st.session_state.chat_history))
     st.session_state.chat_history.append(AIMessage(content=response))
     st.session_state.boton_clickeado = True
