@@ -6,11 +6,11 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 
 # app config
-st.set_page_config(page_title="💬 POLI 🤖",page_icon="🤖💬")
-st.title('💬 POLI Chatbot 🤖',anchor="center")
+st.set_page_config(page_title="🤖💬 POLI ",page_icon="🤖")
+st.title('🤖💬 POLI - Parsed Chatbot')
 # app sidebar
 with st.sidebar:
-    st.title('🤖💬 POLI Chatbot')
+    st.title('🤖💬 POLI - Parsed Chatbot')
     if 'OPENAI_API_KEY' in st.secrets:
         st.success('API key already provided!', icon='✅')
         openai.api_key = st.secrets['OPENAI_API_KEY']
@@ -82,7 +82,7 @@ if "chat_history" not in st.session_state:
 # conversation
 for message in st.session_state.chat_history:
     if isinstance(message, AIMessage):
-        with st.chat_message("🤖"):
+        with st.chat_message("📎"):
             st.write(message.content)
     elif isinstance(message, HumanMessage):
         with st.chat_message("👨‍💻"):
@@ -96,7 +96,7 @@ if user_query is not None and user_query != "":
     with st.chat_message("👨‍💻"):
         st.markdown(user_query)
 
-    with st.chat_message("🤖"):
+    with st.chat_message("📎"):
         response = st.write_stream(get_response(user_query, st.session_state.chat_history))
 
     st.session_state.chat_history.append(AIMessage(content=response))
