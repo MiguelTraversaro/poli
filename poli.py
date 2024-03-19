@@ -77,15 +77,7 @@ def get_response(user_query, chat_history):
 if 'boton_clickeado' not in st.session_state:
     st.session_state.boton_clickeado = False
 
-def click(string):
-    botones_placeholder.empty()
-    st.session_state.chat_history.append(HumanMessage(content=string))
-    with st.chat_message("👨‍💻"):
-        st.markdown(string)
-    with st.chat_message("📎"):
-        response = st.write_stream(get_response(string, st.session_state.chat_history))
-    st.session_state.chat_history.append(AIMessage(content=response))
-    st.session_state.boton_clickeado = True
+
     
 opciones_mensajes = [
     "¿Cómo revoluciona Parsed las operaciones empresariales?",
@@ -108,6 +100,16 @@ for message in st.session_state.chat_history:
     elif isinstance(message, HumanMessage):
         with st.chat_message("👨‍💻"):
             st.write(message.content)
+  
+def click(string):
+    botones_placeholder.empty()
+    st.session_state.chat_history.append(HumanMessage(content=string))
+    with st.chat_message("👨‍💻"):
+        st.markdown(string)
+    with st.chat_message("📎"):
+        response = st.write_stream(get_response(string, st.session_state.chat_history))
+    st.session_state.chat_history.append(AIMessage(content=response))
+    st.session_state.boton_clickeado = True
 
 botones_placeholder = st.empty() 
    
