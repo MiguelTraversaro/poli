@@ -100,9 +100,7 @@ if 'boton_clickeado' not in st.session_state:
     st.session_state.boton_clickeado = False
     
 botones_placeholder = st.empty()
-ancho_pantalla = st.experimental_get_query_params().get("width", [0])[0]
-num_columnas = 2 if int(ancho_pantalla) < 768 else 3
-
+num_columnas = 2
 # user input
 user_query = st.chat_input("Type your message here...")
 
