@@ -11,17 +11,17 @@ st.set_page_config(page_title="POLI 🤖💬",page_icon="🤖")
 st.markdown("<h1 style='text-align: center'>🤖💬 POLI - Parsed Chatbot</h1>", unsafe_allow_html=True)
 # st.header('🤖💬 POLI - Parsed Chatbot',divider="rainbow")
 # app sidebar
-with st.sidebar:
-    st.title('🤖💬 POLI - Parsed Chatbot')
-    if 'OPENAI_API_KEY' in st.secrets:
-        st.success('API key already provided!', icon='✅')
-        openai.api_key = st.secrets['OPENAI_API_KEY']
-    else:
-        openai.api_key = st.text_input('Enter OpenAI API token:', type='password')
-        if not (openai.api_key.startswith('sk-') and len(openai.api_key)==51):
-            st.warning('Please enter your credentials!', icon='⚠️')
-        else:
-            st.success('Proceed to entering your prompt message!', icon='👉')
+# with st.sidebar:
+#     st.title('🤖💬 POLI - Parsed Chatbot')
+#     if 'OPENAI_API_KEY' in st.secrets:
+#         st.success('API key already provided!', icon='✅')
+#         openai.api_key = st.secrets['OPENAI_API_KEY']
+#     else:
+#         openai.api_key = st.text_input('Enter OpenAI API token:', type='password')
+#         if not (openai.api_key.startswith('sk-') and len(openai.api_key)==51):
+#             st.warning('Please enter your credentials!', icon='⚠️')
+#         else:
+#             st.success('Proceed to entering your prompt message!', icon='👉')
 
 # main function
 def get_response(user_query, chat_history):
@@ -98,22 +98,6 @@ opciones_mensajes = [
 
 if 'boton_clickeado' not in st.session_state:
     st.session_state.boton_clickeado = False
-    
-# def click(opcion):
-#     #Limpiar el marcador de posición para hacer desaparecer los botones
-#     botones_placeholder.empty()
-#     # Agregar mensaje del usuario al historial
-#     st.session_state.chat_history.append(HumanMessage(content=opcion))
-#     with st.chat_message("👨‍💻"):
-#         st.markdown(opcion)
-#     # Obtener respuesta del asistente
-#     with st.chat_message("📎"):
-#         response = st.write_stream(get_response(opcion, st.session_state.chat_history))
-#     # Agregar respuesta del asistente al historial de chat
-#     st.session_state.chat_history.append(AIMessage(content=response))
-#     # Actualizar el estado para no volver a mostrar los botones
-#     st.session_state.boton_clickeado = True
-#     st.experimental_rerun()
 
 botones_placeholder = st.empty()    
 
@@ -150,18 +134,3 @@ else:
                         # Forzar una actualización de la interfaz de usuario
                         st.experimental_rerun()
                         break  # Salir del bucle después de un clic
-    
-# if not st.session_state.boton_clickeado:
-#     with botones_placeholder.container():
-#         col1,col2 = st.columns(2)
-#         with col1:
-#             if st.button(opciones_mensajes[0],key=f"button_{0}",use_container_width=True):
-#                 click(opciones_mensajes[0])
-#             if st.button(opciones_mensajes[1],key=f"button_{1}",use_container_width=True):
-#                 click(opciones_mensajes[1])
-#         with col2:
-#             if st.button(opciones_mensajes[2],key=f"button_{2}",use_container_width=True):
-#                 click(opciones_mensajes[2])
-#             if st.button(opciones_mensajes[3],key=f"button_{3}",use_container_width=True):
-#                 click(opciones_mensajes[3])
-    # 
