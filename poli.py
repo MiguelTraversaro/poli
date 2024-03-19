@@ -107,12 +107,13 @@ def click(string):
     st.session_state.chat_history.append(AIMessage(content=response))
     
 col1,col2 = st.columns(2)
-with col1:
-    st.button(opciones_mensajes[0],use_container_width=True,on_click=click(opciones_mensajes[0]))
-    st.button(opciones_mensajes[2],use_container_width=True,on_click=click(opciones_mensajes[2]))
-with col2:
-    st.button(opciones_mensajes[1],use_container_width=True,on_click=click(opciones_mensajes[1]))
-    st.button(opciones_mensajes[3],use_container_width=True,on_click=click(opciones_mensajes[3]))
+with st.container():
+    with col1:
+        st.button(opciones_mensajes[0],use_container_width=True,on_click=click(opciones_mensajes[0]))
+        st.button(opciones_mensajes[2],use_container_width=True,on_click=click(opciones_mensajes[2]))
+    with col2:
+        st.button(opciones_mensajes[1],use_container_width=True,on_click=click(opciones_mensajes[1]))
+        st.button(opciones_mensajes[3],use_container_width=True,on_click=click(opciones_mensajes[3]))
 
 # if 'boton_clickeado' not in st.session_state:
 #     st.session_state.boton_clickeado = False
