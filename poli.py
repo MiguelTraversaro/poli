@@ -121,7 +121,7 @@ else:
             cols = st.columns(num_columnas)
             for i, opcion in enumerate(opciones_mensajes):
                 with cols[i % num_columnas]:
-                    if st.button(opcion):
+                    if st.button(opcion, key=f"button_{i}",use_container_width=True):
                         # Limpiar el marcador de posición para hacer desaparecer los botones
                         botones_placeholder.empty()
                         # Agregar mensaje del usuario al historial
