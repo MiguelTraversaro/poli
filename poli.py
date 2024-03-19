@@ -137,6 +137,7 @@ else:
                         # Actualizar el estado para no volver a mostrar los botones
                         st.session_state.boton_clickeado = True
 
+                        botones_placeholder.empty()
                         # Forzar una actualización de la interfaz de usuario
                         st.experimental_rerun()
                         break  # Salir del bucle después de un clic
