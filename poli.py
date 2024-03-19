@@ -112,7 +112,7 @@ def click(string):
 # user input
 user_query = st.chat_input("Type your message here...")
 
-if user_query is not None and user_query != "":
+if user_query is not None and user_query != "" and not st.session_state.boton_clickeado:
     st.session_state.chat_history.append(HumanMessage(content=user_query))
     with st.chat_message("👨‍💻"):
         st.markdown(user_query)
