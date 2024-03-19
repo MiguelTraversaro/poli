@@ -152,16 +152,16 @@ if user_query is not None and user_query != "":
 #                         break  # Salir del bucle después de un clic
     
 # if not st.session_state.boton_clickeado:
-    with botones_placeholder.container():
-        col1,col2 = st.columns(2)
-        with col1:
-            if st.button(opciones_mensajes[0],key=f"button_{0}",use_container_width=True):
-                click(opciones_mensajes[0])
-            if st.button(opciones_mensajes[1],key=f"button_{1}",use_container_width=True):
-                click(opciones_mensajes[1])
-        with col2:
-            if st.button(opciones_mensajes[2],key=f"button_{2}",use_container_width=True):
-                click(opciones_mensajes[2])
-            if st.button(opciones_mensajes[3],key=f"button_{3}",use_container_width=True):
-                click(opciones_mensajes[3])
+with botones_placeholder.container():
+    col1,col2 = st.columns(2)
+    with col1:
+        if st.button(opciones_mensajes[0],key=f"button_{0}",use_container_width=True):
+            click(opciones_mensajes[0])
+        if st.button(opciones_mensajes[1],key=f"button_{1}",use_container_width=True):
+            click(opciones_mensajes[1])
+    with col2:
+        if st.button(opciones_mensajes[2],key=f"button_{2}",use_container_width=True):
+            click(opciones_mensajes[2])
+        if st.button(opciones_mensajes[3],key=f"button_{3}",use_container_width=True):
+            click(opciones_mensajes[3])
     
