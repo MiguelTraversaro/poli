@@ -8,7 +8,7 @@ import time
 
 # app config
 st.set_page_config(page_title="POLI 🤖💬",page_icon="🤖")
-st.markdown("<h1 style='text-align: center'><ins>'🤖💬 POLI - Parsed Chatbot'</ins></h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center'>'🤖💬 POLI - Parsed Chatbot'</h1>", unsafe_allow_html=True)
 # st.header('🤖💬 POLI - Parsed Chatbot',divider="rainbow")
 # app sidebar
 with st.sidebar:
@@ -79,8 +79,7 @@ if "chat_history" not in st.session_state:
     st.session_state.chat_history = [
         AIMessage(content="👋 Hola! Soy Poli, el asistente de Parsed. ¿En qué puedo ayudarte?"),
     ]
-
-    
+ 
 # conversation
 for message in st.session_state.chat_history:
     if isinstance(message, AIMessage):
