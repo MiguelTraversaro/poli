@@ -21,8 +21,8 @@ with st.sidebar:
 # app config
 # st.set_page_config(page_title="Streaming bot", page_icon="🤖")
 # st.title("Streaming bot")
-st.set_page_config(page_title="💬 POLI 🤖")
-st.title('💬 Chatbot - POLI 🤖')
+# st.set_page_config(page_title="💬 POLI 🤖")
+# st.title('💬 Chatbot - POLI 🤖')
 
 def get_response(user_query, chat_history):
 
