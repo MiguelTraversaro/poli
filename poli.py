@@ -81,6 +81,7 @@ def click(string):
     with st.chat_message("📎"):
         response = st.write_stream(get_response(string, st.session_state.chat_history))
     st.session_state.chat_history.append(AIMessage(content=response))
+    st.experimental_rerun()
     
 opciones_mensajes = [
     "¿Cómo revoluciona Parsed las operaciones empresariales?",
