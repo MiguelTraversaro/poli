@@ -5,9 +5,10 @@ from langchain_openai import ChatOpenAI
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 
+# app config
 st.set_page_config(page_title="💬 POLI 🤖")
 st.title('💬 POLI Chatbot 🤖')
-
+# app sidebar
 with st.sidebar:
     st.title('🤖💬 POLI Chatbot')
     if 'OPENAI_API_KEY' in st.secrets:
@@ -19,13 +20,8 @@ with st.sidebar:
             st.warning('Please enter your credentials!', icon='⚠️')
         else:
             st.success('Proceed to entering your prompt message!', icon='👉')
-    
 
-# app config
-# st.set_page_config(page_title="Streaming bot", page_icon="🤖")
-# st.title("Streaming bot")
-
-
+# main function
 def get_response(user_query, chat_history):
 
     template = """
@@ -76,10 +72,10 @@ def get_response(user_query, chat_history):
         "user_question": user_query,
     })
 
-# session state
+# session state (chat history)
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = [
-        AIMessage(content="Hola! Soy Poli, ¿En que puedo ayudarte?"),
+        AIMessage(content="👋 Hola! Soy Poli, ¿En que puedo ayudarte?"),
     ]
 
     
@@ -89,7 +85,7 @@ for message in st.session_state.chat_history:
         with st.chat_message("🤖"):
             st.write(message.content)
     elif isinstance(message, HumanMessage):
-        with st.chat_message("Human"):
+        with st.chat_message("👨‍💻"):
             st.write(message.content)
 
 # user input
@@ -97,7 +93,7 @@ user_query = st.chat_input("Type your message here...")
 if user_query is not None and user_query != "":
     st.session_state.chat_history.append(HumanMessage(content=user_query))
 
-    with st.chat_message("Human"):
+    with st.chat_message("👨‍💻"):
         st.markdown(user_query)
 
     with st.chat_message("🤖"):
