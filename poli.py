@@ -74,7 +74,29 @@ def get_response(user_query, chat_history):
         "user_question": user_query,
     })
 
+def click(string):
+    st.session_state.chat_history.append(HumanMessage(content=string))
+    with st.chat_message("👨‍💻"):
+        st.markdown(string)
+    with st.chat_message("📎"):
+        response = st.write_stream(get_response(string, st.session_state.chat_history))
+    st.session_state.chat_history.append(AIMessage(content=response))
+    
+opciones_mensajes = [
+    "¿Cómo revoluciona Parsed las operaciones empresariales?",
+    "¿Qué capacitación ofrece Parsed para el uso de la IA?",
+    "¿Cómo cambia Parsed la visión sobre IA?",
+    "¿Parsed hace fácil usar IA sin ser experto?",
+]    
 
+col1,col2 = st.columns(2)
+with st.container():
+    with col1:
+        st.button(opciones_mensajes[0],use_container_width=True, on_click=click, args=[opciones_mensajes[0]])
+        st.button(opciones_mensajes[2],use_container_width=True, on_click=click, args=[opciones_mensajes[2]])
+    with col2:
+        st.button(opciones_mensajes[1],use_container_width=True, on_click=click, args=[opciones_mensajes[1]])
+        st.button(opciones_mensajes[3],use_container_width=True, on_click=click, args=[opciones_mensajes[3]])
 
 # session state (chat history)
 if "chat_history" not in st.session_state:
@@ -91,29 +113,9 @@ for message in st.session_state.chat_history:
         with st.chat_message("👨‍💻"):
             st.write(message.content)
 
-opciones_mensajes = [
-    "¿Cómo revoluciona Parsed las operaciones empresariales?",
-    "¿Qué capacitación ofrece Parsed para el uso de la IA?",
-    "¿Cómo cambia Parsed la visión sobre IA?",
-    "¿Parsed hace fácil usar IA sin ser experto?",
-]
 
-def click(string):
-    st.session_state.chat_history.append(HumanMessage(content=string))
-    with st.chat_message("👨‍💻"):
-        st.markdown(string)
-    with st.chat_message("📎"):
-        response = st.write_stream(get_response(string, st.session_state.chat_history))
-    st.session_state.chat_history.append(AIMessage(content=response))
-    
-col1,col2 = st.columns(2)
-with st.container():
-    with col1:
-        st.button(opciones_mensajes[0],use_container_width=True, on_click=click, args=[opciones_mensajes[0]])
-        st.button(opciones_mensajes[2],use_container_width=True, on_click=click, args=[opciones_mensajes[2]])
-    with col2:
-        st.button(opciones_mensajes[1],use_container_width=True, on_click=click, args=[opciones_mensajes[1]])
-        st.button(opciones_mensajes[3],use_container_width=True, on_click=click, args=[opciones_mensajes[3]])
+
+
 
 
 
