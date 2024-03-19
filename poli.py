@@ -111,14 +111,6 @@ def click(string):
 botones_placeholder = st.empty() 
    
 col1,col2 = st.columns(2)
-if not st.session_state.boton_clickeado:
-    with botones_placeholder.container():
-        with col1:
-            st.button(opciones_mensajes[0],use_container_width=True, on_click=click, args=[opciones_mensajes[0]])
-            st.button(opciones_mensajes[2],use_container_width=True, on_click=click, args=[opciones_mensajes[2]])
-        with col2:
-            st.button(opciones_mensajes[1],use_container_width=True, on_click=click, args=[opciones_mensajes[1]])
-            st.button(opciones_mensajes[3],use_container_width=True, on_click=click, args=[opciones_mensajes[3]])
         
 # user input
 user_query = st.chat_input("Type your message here...")
@@ -130,6 +122,15 @@ if user_query is not None and user_query != "":
     with st.chat_message("📎"):
         response = st.write_stream(get_response(user_query, st.session_state.chat_history))
     st.session_state.chat_history.append(AIMessage(content=response))
+else:
+    if not st.session_state.boton_clickeado:
+        with botones_placeholder.container():
+            with col1:
+                st.button(opciones_mensajes[0],use_container_width=True, on_click=click, args=[opciones_mensajes[0]])
+                st.button(opciones_mensajes[2],use_container_width=True, on_click=click, args=[opciones_mensajes[2]])
+            with col2:
+                st.button(opciones_mensajes[1],use_container_width=True, on_click=click, args=[opciones_mensajes[1]])
+                st.button(opciones_mensajes[3],use_container_width=True, on_click=click, args=[opciones_mensajes[3]])
 # else:
 #     if not st.session_state.boton_clickeado:
 #         with botones_placeholder.container():
