@@ -106,8 +106,7 @@ num_columnas = 2 if int(ancho_pantalla) < 768 else 3
 # user input
 user_query = st.chat_input("Type your message here...")
 
-
-if user_query is not None and user_query != "" and not st.session_state.boton_clickeado:
+if user_query is not None and user_query != "":
     botones_placeholder.empty()
     st.session_state.chat_history.append(HumanMessage(content=user_query))
 
