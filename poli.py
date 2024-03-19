@@ -6,8 +6,8 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 
 # app config
-st.set_page_config(page_title="💬 POLI 🤖")
-st.title('💬 POLI Chatbot 🤖')
+st.set_page_config(page_title="💬 POLI 🤖",page_icon="🤖💬")
+st.title('💬 POLI Chatbot 🤖',centered="true")
 # app sidebar
 with st.sidebar:
     st.title('🤖💬 POLI Chatbot')
