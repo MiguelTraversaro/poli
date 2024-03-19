@@ -113,6 +113,7 @@ def click(opcion):
     st.session_state.chat_history.append(AIMessage(content=response))
     # Actualizar el estado para no volver a mostrar los botones
     st.session_state.boton_clickeado = True
+    st.experimental_rerun()
 
 botones_placeholder = st.empty()    
 
