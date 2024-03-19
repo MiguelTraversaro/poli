@@ -5,8 +5,11 @@ from langchain_openai import ChatOpenAI
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 
+st.set_page_config(page_title="💬 POLI 🤖")
+st.title('💬 POLI Chatbot 🤖')
+
 with st.sidebar:
-    st.title('🤖💬 OpenAI Chatbot')
+    st.title('🤖💬 POLI Chatbot')
     if 'OPENAI_API_KEY' in st.secrets:
         st.success('API key already provided!', icon='✅')
         openai.api_key = st.secrets['OPENAI_API_KEY']
@@ -21,8 +24,7 @@ with st.sidebar:
 # app config
 # st.set_page_config(page_title="Streaming bot", page_icon="🤖")
 # st.title("Streaming bot")
-# st.set_page_config(page_title="💬 POLI 🤖")
-# st.title('💬 Chatbot - POLI 🤖')
+
 
 def get_response(user_query, chat_history):
 
