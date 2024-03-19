@@ -113,7 +113,7 @@ def click(opcion):
     st.session_state.chat_history.append(AIMessage(content=response))
     # Actualizar el estado para no volver a mostrar los botones
     st.session_state.boton_clickeado = True
-    
+
 botones_placeholder = st.empty()    
 
 # user input
@@ -131,11 +131,15 @@ else:
         with botones_placeholder.container():
             col1,col2 = st.columns(2)
             with col1:
-                st.button(opciones_mensajes[0],key=f"button_{0}",use_container_width=True,on_click=click(opciones_mensajes[0]))
-                st.button(opciones_mensajes[1],key=f"button_{1}",use_container_width=True,on_click=click(opciones_mensajes[1]))
+                if st.button(opciones_mensajes[0],key=f"button_{0}",use_container_width=True):
+                    click(opciones_mensajes[0])
+                if st.button(opciones_mensajes[1],key=f"button_{1}",use_container_width=True):
+                    click(opciones_mensajes[1])
             with col2:
-                st.button(opciones_mensajes[2],key=f"button_{2}",use_container_width=True,on_click=click(opciones_mensajes[2]))
-                st.button(opciones_mensajes[3],key=f"button_{3}",use_container_width=True,on_click=click(opciones_mensajes[3]))
+                if st.button(opciones_mensajes[2],key=f"button_{2}",use_container_width=True):
+                    click(opciones_mensajes[2])
+                if st.button(opciones_mensajes[3],key=f"button_{3}",use_container_width=True):
+                    click(opciones_mensajes[3])
     # if not st.session_state.boton_clickeado:
     #     with botones_placeholder.container():
     #         cols = st.columns(num_columnas)
