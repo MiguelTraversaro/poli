@@ -79,7 +79,7 @@ def get_response(user_query, chat_history):
 # session state
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = [
-        AIMessage(content="Hello, I am a bot. How can I help you?"),
+        AIMessage(content="Hola! Soy Poli, ¿En que puedo ayudarte hoy?"),
     ]
 
     
