@@ -85,10 +85,7 @@ opciones_mensajes = [
 ]    
 
 # session state (chat history)
-if "chat_history" not in st.session_state:
-    st.session_state.chat_history = [
-        AIMessage(content="👋 Hola! Soy Poli, el asistente de Parsed. ¿En qué puedo ayudarte?"),
-    ]
+
 
 # conversation
 for message in st.session_state.chat_history:
@@ -98,7 +95,12 @@ for message in st.session_state.chat_history:
     elif isinstance(message, HumanMessage):
         with st.chat_message("👨‍💻"):
             st.write(message.content)
-
+            
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = [
+        AIMessage(content="👋 Hola! Soy Poli, el asistente de Parsed. ¿En qué puedo ayudarte?"),
+    ]
+    
 def click(string):
     botones_placeholder.empty()
     st.session_state.chat_history.append(HumanMessage(content=string))
