@@ -75,6 +75,12 @@ def get_response(user_question, chat_history):
     
 if 'boton_clickeado' not in st.session_state:
     st.session_state.boton_clickeado = False
+    
+def clear_chat_history():
+    st.session_state.chat_history = []
+    st.session_state.boton_clickeado = True
+
+st.button('Clear',on_click=clear_chat_history)
 
 opciones_mensajes = [
     "¿Cómo revoluciona Parsed las operaciones empresariales?",
@@ -98,9 +104,7 @@ for message in st.session_state.chat_history:
         with st.chat_message("👨‍💻"):
             st.write(message.content)
 
-def clear_chat_history():
-    st.session_state.chat_history = []
-    st.session_state.boton_clickeado = False
+
 
 def click(string):
     st.session_state.chat_history.append(HumanMessage(content=string))
@@ -109,13 +113,7 @@ def click(string):
     st.session_state.boton_clickeado = True
     botones_placeholder.empty()
 
-barra_placeholder = st.empty()
-with barra_placeholder.container():
-    col1,col2 = st.columns(2)
-    with col1:
-        user_query = st.chat_input("Type your message here...")
-    with col2:
-        st.button('Clear',on_click=clear_chat_history)
+user_query = st.chat_input("Type your message here...")            
 if user_query is not None and user_query != "":
     st.session_state.chat_history.append(HumanMessage(content=user_query))
     with st.chat_message("👨‍💻"):
