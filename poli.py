@@ -104,8 +104,12 @@ elif not st.session_state.boton_clickeado:
         with botones_placeholder.container():
             col1,col2 = st.columns(2)
             with col1:
-                st.button(opciones_mensajes[0],use_container_width=True, on_click=click, args=[opciones_mensajes[0]])
-                st.button(opciones_mensajes[2],use_container_width=True, on_click=click, args=[opciones_mensajes[2]])
+                if st.button(opciones_mensajes[0],use_container_width=True, on_click=click, args=[opciones_mensajes[0]]):
+                    botones_placeholder.empty()
+                if st.button(opciones_mensajes[2],use_container_width=True, on_click=click, args=[opciones_mensajes[2]]):
+                    botones_placeholder.empty()
             with col2:
-                st.button(opciones_mensajes[1],use_container_width=True, on_click=click, args=[opciones_mensajes[1]])
-                st.button(opciones_mensajes[3],use_container_width=True, on_click=click, args=[opciones_mensajes[3]])
+                if st.button(opciones_mensajes[1],use_container_width=True, on_click=click, args=[opciones_mensajes[1]]):
+                    botones_placeholder.empty()
+                if st.button(opciones_mensajes[3],use_container_width=True, on_click=click, args=[opciones_mensajes[3]]):
+                    botones_placeholder.empty()
