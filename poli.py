@@ -69,7 +69,7 @@ def get_response(user_query, chat_history):
         
     chain = prompt | llm | StrOutputParser()
     
-    return chain.stream({
+    return chain.invoke({
         "chat_history": chat_history,
         "user_question": user_query,
     })
