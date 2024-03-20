@@ -98,6 +98,12 @@ for message in st.session_state.chat_history:
         with st.chat_message("👨‍💻"):
             st.write(message.content)
 
+def clear():
+    st.session_state.chat_history = None
+    st.session_state.boton_clickeado = False
+
+st.button("Limpiar",key="clear",on_click=clear())
+
 def click(string):
     st.session_state.chat_history.append(HumanMessage(content=string))
     response = get_response(string, st.session_state.chat_history)
@@ -124,8 +130,3 @@ elif not st.session_state.boton_clickeado:
                     # Limpiar el marcador de posición para hacer desaparecer los botones
                     botones_placeholder.empty()
                     
-def clear():
-    st.session_state.chat_history = None
-    st.session_state.boton_clickeado = False
-
-st.button("Limpiar",key="clear",on_click=clear())
