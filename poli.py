@@ -4,28 +4,14 @@ from langchain_core.messages import AIMessage, HumanMessage
 from langchain_openai import ChatOpenAI
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
-import time
 
 # app config
 st.set_page_config(page_title="POLI 🤖💬",page_icon="🤖")
 # st.title("🤖💬 POLI - Parsed Chatbot")
 st.header('🤖💬 POLI - Parsed Chatbot',divider="rainbow")
-# app sidebar
-# with st.sidebar:
-#     st.title('🤖💬 POLI - Parsed Chatbot')
-#     if 'OPENAI_API_KEY' in st.secrets:
-#         st.success('API key already provided!', icon='✅')
-#         openai.api_key = st.secrets['OPENAI_API_KEY']
-#     else:
-#         openai.api_key = st.text_input('Enter OpenAI API token:', type='password')
-#         if not (openai.api_key.startswith('sk-') and len(openai.api_key)==51):
-#             st.warning('Please enter your credentials!', icon='⚠️')
-#         else:
-#             st.success('Proceed to entering your prompt message!', icon='👉')
 
 # main function
 def get_response(user_question, chat_history):
-
     template = """
     You are Poli, a helpful assistant at Parsed. Answer the following questions considering the history of the conversation and the following text:
     
@@ -59,11 +45,8 @@ def get_response(user_question, chat_history):
     We enable teams to co-work with artificial intelligence, developing unique, hyper-customised solutions that enable productivity gains in up to 66% of work areas. We specialise in developing customised use cases guiding the client to solve high priority pain points by leveraging AI. We create solutions that emulate the process that would run in real time to show our clients the performance of AI to solve the pain point that the client builds confidence with the implementation of emerging technologies in high priority processes within the organisation.
     
     User question: {user_question}
-    
     Chat history: {chat_history}
-
     """
-
     prompt = ChatPromptTemplate.from_template(template)
 
     llm = ChatOpenAI(openai_api_key=openai.api_key,model="gpt-3.5-turbo-0125",temperature=1)
@@ -92,13 +75,13 @@ if "chat_history" not in st.session_state:
     ]
 
 # conversation
-for message in st.session_state.chat_history:
-    if isinstance(message, AIMessage):
-        with st.chat_message("📎"):
-            st.write(message.content)
-    elif isinstance(message, HumanMessage):
-        with st.chat_message("👨‍💻"):
-            st.write(message.content)
+# for message in st.session_state.chat_history:
+#     if isinstance(message, AIMessage):
+#         with st.chat_message("📎"):
+#             st.write(message.content)
+#     elif isinstance(message, HumanMessage):
+#         with st.chat_message("👨‍💻"):
+#             st.write(message.content)
 
 def click(string):
     botones_placeholder.empty()
@@ -106,7 +89,7 @@ def click(string):
     response = st.write_stream(get_response(string, st.session_state.chat_history))
     st.session_state.chat_history.append(AIMessage(content=response))
     st.session_state.boton_clickeado = True
-         
+
 user_query = st.chat_input("Type your message here...")            
 if user_query is not None and user_query != "":
     st.session_state.chat_history.append(HumanMessage(content=user_query))
@@ -115,8 +98,7 @@ if user_query is not None and user_query != "":
     with st.chat_message("📎"):
         response = st.write_stream(get_response(user_query, st.session_state.chat_history))
     st.session_state.chat_history.append(AIMessage(content=response))
-else:
-    if not st.session_state.boton_clickeado:
+elif not st.session_state.boton_clickeado:
         botones_placeholder = st.empty()
         with botones_placeholder.container():
             col1,col2 = st.columns(2)
