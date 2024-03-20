@@ -105,7 +105,7 @@ if user_query is not None and user_query != "" and not st.session_state.boton_cl
     with st.chat_message("👨‍💻"):
         st.markdown(user_query)
     with st.chat_message("📎"):
-        response = st.write(get_response(user_query, st.session_state.chat_history))
+        response = st.write_stream(get_response(user_query, st.session_state.chat_history))
     st.session_state.chat_history.append(AIMessage(content=response))
 
 def click(string):
