@@ -71,8 +71,8 @@ def get_response(query, chat_history):
     chain = prompt | llm | StrOutputParser()
     
     return chain.stream({
-        "user_question": query,
         "chat_history": chat_history,
+        "user_question": query,
     })
     
 if 'boton_clickeado' not in st.session_state:
