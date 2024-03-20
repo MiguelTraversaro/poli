@@ -111,9 +111,8 @@ if user_query is not None and user_query != "" and not st.session_state.boton_cl
 def click(string):
     botones_placeholder.empty()
     st.session_state.chat_history.append(HumanMessage(content=string))
-    with st.chat_message("📎"):
-        response = "prueba"+st.write_stream(get_response(string, st.session_state.chat_history))
-    st.session_state.chat_history.append(AIMessage(content=response))
+    # response = "prueba"+st.write_stream(get_response(string, st.session_state.chat_history))
+    st.session_state.chat_history.append(AIMessage(content=st.write_stream(get_response(string, st.session_state.chat_history))))
     st.session_state.boton_clickeado = True
 
 if not st.session_state.boton_clickeado:
