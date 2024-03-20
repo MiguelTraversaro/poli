@@ -93,7 +93,7 @@ if "chat_history" not in st.session_state:
         AIMessage(content="👋 Hola, soy Poli, tu agente orientador en Parsed. Estoy aquí para ayudarte a descubrir cómo nuestras soluciones de inteligencia artificial pueden transformar tu negocio. ¿En qué puedo asistirte hoy?"),
     ]
     
-st.button('Clear',on_click=clear_chat_history)
+st.button('Clear',key="btn",on_click=clear_chat_history)
 
 # conversation
 for message in st.session_state.chat_history:
