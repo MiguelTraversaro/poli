@@ -69,10 +69,7 @@ def get_response(user_query, chat_history):
         
     chain = prompt | llm | StrOutputParser()
     
-    return chain.invoke({
-        "chat_history": chat_history,
-        "user_question": user_query,
-    })
+    return chain.invoke()
     
 if 'boton_clickeado' not in st.session_state:
     st.session_state.boton_clickeado = False
