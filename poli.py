@@ -111,4 +111,3 @@ elif not st.session_state.boton_clickeado:
 if st.button("Limpiar"):
     st.session_state.chat_history = None
     st.session_state.boton_clickeado = False
-    st.rerun
