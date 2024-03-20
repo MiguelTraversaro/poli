@@ -99,12 +99,24 @@ if user_query is not None and user_query != "":
         response = st.write_stream(get_response(user_query, st.session_state.chat_history))
     st.session_state.chat_history.append(AIMessage(content=response))
 elif not st.session_state.boton_clickeado:
-        botones_placeholder = st.empty()
-        with botones_placeholder.container():
-            col1,col2 = st.columns(2)
-            with col1:
-                st.button(opciones_mensajes[0],use_container_width=True, on_click=click, args=[opciones_mensajes[0]])
-                st.button(opciones_mensajes[2],use_container_width=True, on_click=click, args=[opciones_mensajes[2]])
-            with col2:
-                st.button(opciones_mensajes[1],use_container_width=True, on_click=click, args=[opciones_mensajes[1]])
-                st.button(opciones_mensajes[3],use_container_width=True, on_click=click, args=[opciones_mensajes[3]])
+    botones_placeholder = st.empty()
+    with botones_placeholder.container():
+        cols = st.columns(2)
+        for i, opcion in enumerate(opciones_mensajes):
+            with cols[i % 2]:
+                if st.button(opcion, key=f"button_{i}"):
+                    # Limpiar el marcador de posición para hacer desaparecer los botones
+                    botones_placeholder.empty()
+                    st.session_state.chat_history.append(HumanMessage(content=opcion))
+                    response = st.write_stream(get_response(opcion, st.session_state.chat_history))
+                    st.session_state.chat_history.append(AIMessage(content=response))
+                    st.session_state.boton_clickeado = True
+        # botones_placeholder = st.empty()
+        # with botones_placeholder.container():
+        #     col1,col2 = st.columns(2)
+        #     with col1:
+        #         st.button(opciones_mensajes[0],use_container_width=True, on_click=click, args=[opciones_mensajes[0]])
+        #         st.button(opciones_mensajes[2],use_container_width=True, on_click=click, args=[opciones_mensajes[2]])
+        #     with col2:
+        #         st.button(opciones_mensajes[1],use_container_width=True, on_click=click, args=[opciones_mensajes[1]])
+        #         st.button(opciones_mensajes[3],use_container_width=True, on_click=click, args=[opciones_mensajes[3]])
