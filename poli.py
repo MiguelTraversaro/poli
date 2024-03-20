@@ -110,7 +110,7 @@ def click(string):
     st.session_state.chat_history.append(AIMessage(content=response))
     st.session_state.boton_clickeado = True
     botones_placeholder.empty()
-    
+
 user_query = st.chat_input("Type your message here...")            
 if user_query is not None and user_query != "":
     st.session_state.chat_history.append(HumanMessage(content=user_query))
