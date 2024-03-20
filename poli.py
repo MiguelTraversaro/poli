@@ -58,9 +58,10 @@ def get_response(user_query, chat_history):
 
     We enable teams to co-work with artificial intelligence, developing unique, hyper-customised solutions that enable productivity gains in up to 66% of work areas. We specialise in developing customised use cases guiding the client to solve high priority pain points by leveraging AI. We create solutions that emulate the process that would run in real time to show our clients the performance of AI to solve the pain point that the client builds confidence with the implementation of emerging technologies in high priority processes within the organisation.
     
+    User question: {user_query}
+    
     Chat history: {chat_history}
 
-    User question: {user_question}
     """
 
     prompt = ChatPromptTemplate.from_template(template)
@@ -70,8 +71,8 @@ def get_response(user_query, chat_history):
     chain = prompt | llm | StrOutputParser()
     
     return chain.stream({
-        "chat_history": chat_history,
         "user_question": user_query,
+        "chat_history": chat_history,
     })
     
 if 'boton_clickeado' not in st.session_state:
@@ -85,7 +86,10 @@ opciones_mensajes = [
 ]    
 
 # session state (chat history)
-
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = [
+        AIMessage(content="👋 Hola! Soy Poli, el asistente de Parsed. ¿En qué puedo ayudarte?"),
+    ]
 
 # conversation
 for message in st.session_state.chat_history:
@@ -95,17 +99,12 @@ for message in st.session_state.chat_history:
     elif isinstance(message, HumanMessage):
         with st.chat_message("👨‍💻"):
             st.write(message.content)
-            
-if "chat_history" not in st.session_state:
-    st.session_state.chat_history = [
-        AIMessage(content="👋 Hola! Soy Poli, el asistente de Parsed. ¿En qué puedo ayudarte?"),
-    ]
-    
+
 def click(string):
     botones_placeholder.empty()
     st.session_state.chat_history.append(HumanMessage(content=string))
-    st.write_stream(get_response(string, st.session_state.chat_history))
-    # st.session_state.chat_history.append(AIMessage(content=response))
+    response = st.write_stream(get_response(string, st.session_state.chat_history))
+    st.session_state.chat_history.append(AIMessage(content=response))
     st.session_state.boton_clickeado = True
          
 user_query = st.chat_input("Type your message here...")            
