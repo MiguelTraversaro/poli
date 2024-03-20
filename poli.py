@@ -100,7 +100,7 @@ for message in st.session_state.chat_history:
             st.write(message.content)
             
 user_query = st.chat_input("Type your message here...")            
-if user_query is not None and user_query != "" and not st.session_state.boton_clickeado:
+if user_query is not None and user_query != "":
     st.session_state.chat_history.append(HumanMessage(content=user_query))
     with st.chat_message("👨‍💻"):
         st.markdown(user_query)
