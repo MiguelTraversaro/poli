@@ -104,13 +104,13 @@ elif not st.session_state.boton_clickeado:
         cols = st.columns(2)
         for i, opcion in enumerate(opciones_mensajes):
             with cols[i % 2]:
-                if st.button(opcion, key=f"button_{i}"):
+                if st.button(opcion, key=f"button_{i}",on_click=click,args=[opcion]):
                     # Limpiar el marcador de posición para hacer desaparecer los botones
                     botones_placeholder.empty()
-                    st.session_state.chat_history.append(HumanMessage(content=opcion))
-                    response = st.write_stream(get_response(opcion, st.session_state.chat_history))
-                    st.session_state.chat_history.append(AIMessage(content=response))
-                    st.session_state.boton_clickeado = True
+                    # st.session_state.chat_history.append(HumanMessage(content=opcion))
+                    # response = st.write_stream(get_response(opcion, st.session_state.chat_history))
+                    # st.session_state.chat_history.append(AIMessage(content=response))
+                    # st.session_state.boton_clickeado = True
         # botones_placeholder = st.empty()
         # with botones_placeholder.container():
         #     col1,col2 = st.columns(2)
