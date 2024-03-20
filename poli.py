@@ -128,4 +128,6 @@ def clear_chat_history():
     st.session_state.chat_history = []
     st.session_state.boton_clickeado = True
 
-st.button('Clear',on_click=clear_chat_history)
+placeholder = st.empty()
+with placeholder.container():
+    st.button('Clear',on_click=clear_chat_history)
