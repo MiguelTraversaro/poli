@@ -98,11 +98,11 @@ for message in st.session_state.chat_history:
         with st.chat_message("👨‍💻"):
             st.write(message.content)
 
-def clear():
-    st.session_state.chat_history = None
-    st.session_state.boton_clickeado = False
+# def clear():
+#     st.session_state.chat_history = None
+#     st.session_state.boton_clickeado = False
 
-st.button("Limpiar",key="clear",on_click=clear())
+# st.button("Limpiar",key="clear",on_click=clear())
 
 def click(string):
     st.session_state.chat_history.append(HumanMessage(content=string))
