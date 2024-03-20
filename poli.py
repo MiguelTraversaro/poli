@@ -130,4 +130,6 @@ def clear_chat_history():
 
 placeholder = st.empty()
 with placeholder.container():
-    st.button('Clear',on_click=clear_chat_history)
+    col1,col2 = st.columns(2)
+    with col2:
+        st.button('Clear',on_click=clear_chat_history)
