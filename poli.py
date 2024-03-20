@@ -104,7 +104,7 @@ def click(string):
     botones_placeholder.empty()
     st.session_state.chat_history.append(HumanMessage(content=string))
     for i in get_response(string, st.session_state.chat_history):
-        response += i
+        respuesta += i
     st.session_state.chat_history.append(AIMessage(content=response))
     st.session_state.boton_clickeado = True
          
