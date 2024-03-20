@@ -69,10 +69,10 @@ opciones_mensajes = [
 ]    
 
 # session state (chat history)
-if "chat_history" not in st.session_state:
-    st.session_state.chat_history = [
-        AIMessage(content="👋 Hola! Soy Poli, el asistente de Parsed. ¿En qué puedo ayudarte?"),
-    ]
+# if "chat_history" not in st.session_state:
+#     st.session_state.chat_history = [
+#         AIMessage(content="👋 Hola! Soy Poli, el asistente de Parsed. ¿En qué puedo ayudarte?"),
+#     ]
 
 # conversation
 # for message in st.session_state.chat_history:
