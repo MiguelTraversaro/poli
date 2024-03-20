@@ -24,7 +24,7 @@ st.header('🤖💬 POLI - Parsed Chatbot',divider="rainbow")
 #             st.success('Proceed to entering your prompt message!', icon='👉')
 
 # main function
-def get_response(user_query, chat_history):
+def get_response(query, chat_history):
 
     template = """
     You are Poli, a helpful assistant at Parsed. Answer the following questions considering the history of the conversation and the following text:
@@ -58,7 +58,7 @@ def get_response(user_query, chat_history):
 
     We enable teams to co-work with artificial intelligence, developing unique, hyper-customised solutions that enable productivity gains in up to 66% of work areas. We specialise in developing customised use cases guiding the client to solve high priority pain points by leveraging AI. We create solutions that emulate the process that would run in real time to show our clients the performance of AI to solve the pain point that the client builds confidence with the implementation of emerging technologies in high priority processes within the organisation.
     
-    User question: {user_query}
+    User question: {query}
     
     Chat history: {chat_history}
 
@@ -71,7 +71,7 @@ def get_response(user_query, chat_history):
     chain = prompt | llm | StrOutputParser()
     
     return chain.stream({
-        "user_question": user_query,
+        "user_question": query,
         "chat_history": chat_history,
     })
     
