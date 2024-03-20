@@ -96,7 +96,7 @@ if user_query is not None and user_query != "":
     with st.chat_message("👨‍💻"):
         st.markdown(user_query)
     with st.chat_message("📎"):
-        response = st.write(get_response(user_query, st.session_state.chat_history))
+        response = get_response(user_query, st.session_state.chat_history)
     st.session_state.chat_history.append(AIMessage(content=response))
 elif not st.session_state.boton_clickeado:
     botones_placeholder = st.empty()
