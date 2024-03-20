@@ -128,4 +128,4 @@ def clear():
     st.session_state.chat_history = None
     st.session_state.boton_clickeado = False
 
-st.button("Limpiar",on_click=clear())
+st.button("Limpiar",key="clear",on_click=clear())
