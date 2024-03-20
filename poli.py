@@ -97,6 +97,7 @@ if user_query is not None and user_query != "":
         st.markdown(user_query)
     with st.chat_message("📎"):
         response = get_response(user_query, st.session_state.chat_history)
+        st.markdown(response)
     st.session_state.chat_history.append(AIMessage(content=response))
 elif not st.session_state.boton_clickeado:
     botones_placeholder = st.empty()
