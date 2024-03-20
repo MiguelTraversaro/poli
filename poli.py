@@ -75,12 +75,6 @@ def get_response(user_question, chat_history):
     
 if 'boton_clickeado' not in st.session_state:
     st.session_state.boton_clickeado = False
-    
-def clear_chat_history():
-    st.session_state.chat_history = []
-    st.session_state.boton_clickeado = True
-
-st.button('Clear',on_click=clear_chat_history)
 
 opciones_mensajes = [
     "¿Cómo revoluciona Parsed las operaciones empresariales?",
@@ -103,8 +97,6 @@ for message in st.session_state.chat_history:
     elif isinstance(message, HumanMessage):
         with st.chat_message("👨‍💻"):
             st.write(message.content)
-
-
 
 def click(string):
     st.session_state.chat_history.append(HumanMessage(content=string))
@@ -132,3 +124,8 @@ elif not st.session_state.boton_clickeado:
                     # Limpiar el marcador de posición para hacer desaparecer los botones
                     botones_placeholder.empty()
                     
+def clear_chat_history():
+    st.session_state.chat_history = []
+    st.session_state.boton_clickeado = True
+
+st.button('Clear',on_click=clear_chat_history)
