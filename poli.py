@@ -124,6 +124,8 @@ elif not st.session_state.boton_clickeado:
                     # Limpiar el marcador de posición para hacer desaparecer los botones
                     botones_placeholder.empty()
                     
-if st.button("Limpiar"):
+def clear():
     st.session_state.chat_history = None
     st.session_state.boton_clickeado = False
+
+st.button("Limpiar",on_click=clear())
