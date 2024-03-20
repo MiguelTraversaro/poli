@@ -7,7 +7,6 @@ from langchain_core.prompts import ChatPromptTemplate
 
 # app config
 st.set_page_config(page_title="POLI 🤖💬",page_icon="🤖")
-# st.title("🤖💬 POLI - Parsed Chatbot")
 st.header('🤖💬 POLI - Parsed Chatbot',divider="rainbow")
 
 # main function
@@ -108,16 +107,3 @@ elif not st.session_state.boton_clickeado:
                 if st.button(opcion, key=f"button_{i}",use_container_width=True,on_click=click,args=[opcion]):
                     # Limpiar el marcador de posición para hacer desaparecer los botones
                     botones_placeholder.empty()
-                    # st.session_state.chat_history.append(HumanMessage(content=opcion))
-                    # response = st.write_stream(get_response(opcion, st.session_state.chat_history))
-                    # st.session_state.chat_history.append(AIMessage(content=response))
-                    # st.session_state.boton_clickeado = True
-        # botones_placeholder = st.empty()
-        # with botones_placeholder.container():
-        #     col1,col2 = st.columns(2)
-        #     with col1:
-        #         st.button(opciones_mensajes[0],use_container_width=True, on_click=click, args=[opciones_mensajes[0]])
-        #         st.button(opciones_mensajes[2],use_container_width=True, on_click=click, args=[opciones_mensajes[2]])
-        #     with col2:
-        #         st.button(opciones_mensajes[1],use_container_width=True, on_click=click, args=[opciones_mensajes[1]])
-        #         st.button(opciones_mensajes[3],use_container_width=True, on_click=click, args=[opciones_mensajes[3]])
