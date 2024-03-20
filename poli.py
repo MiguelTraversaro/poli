@@ -53,7 +53,7 @@ def get_response(user_question, chat_history):
         
     chain = prompt | llm | StrOutputParser()
     
-    return chain.stream({
+    return chain.invoke({
         "chat_history": chat_history,
         "user_question": user_question,
     })
@@ -85,8 +85,7 @@ for message in st.session_state.chat_history:
 
 def click(string):
     st.session_state.chat_history.append(HumanMessage(content=string))
-    response = st.write_stream(get_response(string, st.session_state.chat_history))
-    st.write(response)
+    response = st.write(get_response(string, st.session_state.chat_history))
     st.session_state.chat_history.append(AIMessage(content=response))
     st.session_state.boton_clickeado = True
     botones_placeholder.empty()
@@ -105,7 +104,7 @@ elif not st.session_state.boton_clickeado:
         cols = st.columns(2)
         for i, opcion in enumerate(opciones_mensajes):
             with cols[i % 2]:
-                if st.button(opcion, key=f"button_{i}",on_click=click,args=[opcion]):
+                if st.button(opcion, key=f"button_{i}",use_container_width=True,on_click=click,args=[opcion]):
                     # Limpiar el marcador de posición para hacer desaparecer los botones
                     botones_placeholder.empty()
                     # st.session_state.chat_history.append(HumanMessage(content=opcion))
