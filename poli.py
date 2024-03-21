@@ -112,26 +112,29 @@ def clear_chat_history():
 
     
 user_query = st.chat_input("Type your message here...")
+clear = st.empty()
+with clear.container():
+    st.button('Clear',key="btn",on_click=clear_chat_history)
+
 placeholder = st.empty()
 with placeholder.container():
-    st.button('Clear',key="btn",on_click=clear_chat_history)
-if user_query is not None and user_query != "":
-    st.session_state.chat_history.append(HumanMessage(content=user_query))
-    with st.chat_message("👨‍💻"):
-        st.markdown(user_query)
-    with st.chat_message("📎"):
-        response = get_response(user_query, st.session_state.chat_history)
-        st.markdown(response)
-    st.session_state.chat_history.append(AIMessage(content=response))
-elif not st.session_state.boton_clickeado:
-    botones_placeholder = st.empty()
-    with botones_placeholder.container():
-        cols = st.columns(2)
-        for i, opcion in enumerate(opciones_mensajes):
-            with cols[i % 2]:
-                if st.button(opcion, key=f"button_{i}",use_container_width=True,on_click=click,args=[opcion]):
-                    # Limpiar el marcador de posición para hacer desaparecer los botones
-                    botones_placeholder.empty()
+    if user_query is not None and user_query != "":
+        st.session_state.chat_history.append(HumanMessage(content=user_query))
+        with st.chat_message("👨‍💻"):
+            st.markdown(user_query)
+        with st.chat_message("📎"):
+            response = get_response(user_query, st.session_state.chat_history)
+            st.markdown(response)
+        st.session_state.chat_history.append(AIMessage(content=response))
+    elif not st.session_state.boton_clickeado:
+        botones_placeholder = st.empty()
+        with botones_placeholder.container():
+            cols = st.columns(2)
+            for i, opcion in enumerate(opciones_mensajes):
+                with cols[i % 2]:
+                    if st.button(opcion, key=f"button_{i}",use_container_width=True,on_click=click,args=[opcion]):
+                        # Limpiar el marcador de posición para hacer desaparecer los botones
+                        botones_placeholder.empty()
                     
 # placeholder = st.empty()
 # with placeholder.container():
