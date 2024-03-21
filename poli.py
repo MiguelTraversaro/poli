@@ -104,14 +104,16 @@ def click(string):
     st.session_state.chat_history.append(AIMessage(content=response))
     st.session_state.boton_clickeado = True
     botones_placeholder.empty()
-
-user_query = st.chat_input("Type your message here...")
-
+    
 def clear_chat_history():
     st.session_state.chat_history = []
     st.session_state.boton_clickeado = False
     
-st.button('Clear',key="btn",on_click=clear_chat_history)        
+placeholder = st.empty()
+with placeholder.container():
+    user_query = st.chat_input("Type your message here...")
+    st.button('Clear',key="btn",on_click=clear_chat_history) 
+
 if user_query is not None and user_query != "":
     st.session_state.chat_history.append(HumanMessage(content=user_query))
     with st.chat_message("👨‍💻"):
