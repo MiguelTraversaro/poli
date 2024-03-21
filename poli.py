@@ -7,11 +7,6 @@ from langchain_core.prompts import ChatPromptTemplate
 
 # app config
 st.set_page_config(page_title="POLI 🤖💬",page_icon="🤖")
-def clear_chat_history():
-    st.session_state.chat_history = []
-    st.session_state.boton_clickeado = False
-    
-st.button('Clear',key="btn",on_click=clear_chat_history)
 st.header('🤖💬 POLI - Parsed Chatbot',divider="rainbow")
 
 # main function
@@ -78,8 +73,6 @@ def get_response(user_question, chat_history):
         "user_question": user_question,
     })
 
-
-
 if 'boton_clickeado' not in st.session_state:
     st.session_state.boton_clickeado = False
 
@@ -112,7 +105,13 @@ def click(string):
     st.session_state.boton_clickeado = True
     botones_placeholder.empty()
 
-user_query = st.chat_input("Type your message here...")            
+user_query = st.chat_input("Type your message here...")
+
+def clear_chat_history():
+    st.session_state.chat_history = []
+    st.session_state.boton_clickeado = False
+    
+st.button('Clear',key="btn",on_click=clear_chat_history)        
 if user_query is not None and user_query != "":
     st.session_state.chat_history.append(HumanMessage(content=user_query))
     with st.chat_message("👨‍💻"):
