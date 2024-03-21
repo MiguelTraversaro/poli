@@ -83,6 +83,14 @@ opciones_mensajes = [
     "¿Parsed hace fácil usar IA sin ser experto?",
 ]    
 
+def clear_chat_history():
+    st.session_state.chat_history = []
+    st.session_state.boton_clickeado = False
+
+clear = st.empty()
+with clear.container():
+    st.button('Clear',key="btn",on_click=clear_chat_history)   
+
 # session state (chat history)
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = [
@@ -107,10 +115,6 @@ def click(string):
     st.session_state.boton_clickeado = True
     botones_placeholder.empty()
     
-def clear_chat_history():
-    st.session_state.chat_history = []
-    st.session_state.boton_clickeado = False
-    
 user_query = st.chat_input("Type your message here...")    
 placeholder = st.empty()
 with placeholder.container():
@@ -133,10 +137,7 @@ with placeholder.container():
                         # Limpiar el marcador de posición para hacer desaparecer los botones
                         botones_placeholder.empty()
                         st.stop
-                        
-clear = st.empty()
-with clear.container():
-    st.button('Clear',key="btn",on_click=clear_chat_history)                    
+                                
 # placeholder = st.empty()
 # with placeholder.container():
 #     col1,col2 = st.columns(2)
