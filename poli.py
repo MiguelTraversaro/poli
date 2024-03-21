@@ -90,13 +90,15 @@ if "chat_history" not in st.session_state:
     ]
     
 # conversation
-for message in st.session_state.chat_history:
-    if isinstance(message, AIMessage):
-        with st.chat_message("📎"):
-            st.write(message.content)
-    elif isinstance(message, HumanMessage):
-        with st.chat_message("👨‍💻"):
-            st.write(message.content)
+conversation = st.empty()
+with conversation.container():
+    for message in st.session_state.chat_history:
+        if isinstance(message, AIMessage):
+            with st.chat_message("📎"):
+                st.write(message.content)
+        elif isinstance(message, HumanMessage):
+            with st.chat_message("👨‍💻"):
+                st.write(message.content)
 
 def click(string):
     st.session_state.chat_history.append(HumanMessage(content=string))
@@ -109,11 +111,6 @@ def clear_chat_history():
     st.session_state.chat_history = []
     st.session_state.boton_clickeado = False
     
-
-    
-
-
-
 placeholder = st.empty()
 with placeholder.container():
     user_query = st.chat_input("Type your message here...")
