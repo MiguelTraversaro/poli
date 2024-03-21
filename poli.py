@@ -76,6 +76,8 @@ def get_response(user_question, chat_history):
 def clear_chat_history():
     st.session_state.chat_history = []
     st.session_state.boton_clickeado = False
+    
+st.button('Clear',key="btn",on_click=clear_chat_history)
 
 if 'boton_clickeado' not in st.session_state:
     st.session_state.boton_clickeado = False
@@ -93,8 +95,6 @@ if "chat_history" not in st.session_state:
         AIMessage(content="👋 Hola, soy Poli, tu agente orientador en Parsed. Estoy aquí para ayudarte a descubrir cómo nuestras soluciones de inteligencia artificial pueden transformar tu negocio. ¿En qué puedo asistirte hoy?"),
     ]
     
-st.button('Clear',key="btn",on_click=clear_chat_history)
-
 # conversation
 for message in st.session_state.chat_history:
     if isinstance(message, AIMessage):
@@ -130,8 +130,8 @@ elif not st.session_state.boton_clickeado:
                     # Limpiar el marcador de posición para hacer desaparecer los botones
                     botones_placeholder.empty()
                     
-placeholder = st.empty()
-with placeholder.container():
-    col1,col2 = st.columns(2)
-    with col2:
-        st.button('Clear',on_click=clear_chat_history)
+# placeholder = st.empty()
+# with placeholder.container():
+#     col1,col2 = st.columns(2)
+#     with col2:
+#         st.button('Clear',on_click=clear_chat_history)
