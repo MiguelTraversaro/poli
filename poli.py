@@ -136,6 +136,6 @@ with placeholder.container():
                         # Limpiar el marcador de posición para hacer desaparecer los botones
                         botones_placeholder.empty()
                         
-clear = st.empty()
-with clear.container():
-    st.button('Clear',key="btn",on_click=clear_chat_history)
+# clear = st.empty()
+# with clear.container():
+#     st.button('Clear',key="btn",on_click=clear_chat_history)
