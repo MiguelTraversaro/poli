@@ -111,10 +111,7 @@ def clear_chat_history():
     st.session_state.chat_history = []
     st.session_state.boton_clickeado = False
 
-clear = st.empty()
-with clear.container():
-    st.button('Clear',key="btn",on_click=clear_chat_history)
-    user_query = st.chat_input("Type your message here...")    
+user_query = st.chat_input("Type your message here...")    
 
 placeholder = st.empty()
 with placeholder.container():
