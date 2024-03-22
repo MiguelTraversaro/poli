@@ -64,7 +64,7 @@ def get_response(user_question, chat_history):
     """
     prompt = ChatPromptTemplate.from_template(template)
 
-    llm = ChatOpenAI(openai_api_key=openai.api_key,model="gpt-3.5-turbo-0125",temperature=0.8,model_kwargs={"top_p":0.8})
+    llm = ChatOpenAI(openai_api_key=openai.api_key,model="gpt-3.5-turbo-0125",temperature=0.1,model_kwargs={"top_p":0.1})
         
     chain = prompt | llm | StrOutputParser()
     
